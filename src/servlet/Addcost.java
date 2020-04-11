@@ -23,7 +23,7 @@ public class Addcost extends HttpServlet {
 			
 			
 			String description=request.getParameter("description");
-			
+			if(description!=null) {
 				String cost=request.getParameter("cost");
 				String date=request.getParameter("date");
 				cost c=new cost(description,cost,date);
@@ -31,7 +31,7 @@ public class Addcost extends HttpServlet {
 				if(csService.addcost(c)) 
 					response.sendRedirect("costs.jsp");
 				
-			
+			}
 		} catch (Exception e) {
 			System.out.println(e);
 			// TODO: handle exception

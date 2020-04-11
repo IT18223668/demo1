@@ -20,7 +20,7 @@ public class costserviceImpl implements costservice {
 	@Override
 	public boolean addcost(cost cst) throws ClassNotFoundException, SQLException {
 		Connection conn = DBconnect.getCon();
-		PreparedStatement ps = conn.prepareStatement("Insert into cost(description,cost,date) values('" + cst.getDescription()+ "','" + cst.getCost() + "','"+cst.getDate()+"' where )");
+		PreparedStatement ps = conn.prepareStatement("Insert into cost(description,cost,date) values('" + cst.getDescription()+ "','" + cst.getCost() + "','"+cst.getDate()+"')");
 				
 
 		int res = ps.executeUpdate();
