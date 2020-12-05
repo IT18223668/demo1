@@ -2,27 +2,25 @@ package model;
 
 public class appointment_payment {
 	private int payId;
-	private String payment;
-	private String doctorPy;
-	private String institutePy;
+	private double payment;
+	private double doctorPy;
 	
 	
 	
-	public appointment_payment(int payId, String payment, String doctorPy, String institutePy) {
+	
+	public appointment_payment(int payId, double payment, double doctorPy) {
 		super();
 		this.payId = payId;
 		this.payment = payment;
 		this.doctorPy = doctorPy;
-		this.institutePy = institutePy;
 	}
 
 
 
-	public appointment_payment(String payment, String doctorPy, String institutePy) {
+	public appointment_payment(double payment, double doctorPy) {
 		super();
 		this.payment = payment;
 		this.doctorPy = doctorPy;
-		this.institutePy = institutePy;
 	}
 
 
@@ -39,39 +37,31 @@ public class appointment_payment {
 
 
 
-	public String getPayment() {
+	public double getPayment() {
 		return payment;
 	}
 
 
 
-	public void setPayment(String payment) {
+	public void setPayment(double payment) {
 		this.payment = payment;
 	}
 
 
 
-	public String getDoctorPy() {
+	public double getDoctorPy() {
 		return doctorPy;
 	}
 
 
 
-	public void setDoctorPy(String doctorPy) {
+	public void setDoctorPy(double doctorPy) {
 		this.doctorPy = doctorPy;
 	}
 
 
 
-	public String getInstitutePy() {
-		return institutePy;
-	}
 
-
-
-	public void setInstitutePy(String institutePy) {
-		this.institutePy = institutePy;
-	}
 	
 	
 	

@@ -11,7 +11,7 @@ public class costserviceImpl implements costservice {
 	
 	private int size;
 	private String description;
-	private String cost;
+	private double cost;
 	private boolean status; 
 	private int costId;
 	private String date;
@@ -21,12 +21,17 @@ public class costserviceImpl implements costservice {
 	public boolean addcost(cost cst) throws ClassNotFoundException, SQLException {
 		Connection conn = DBconnect.getCon();
 		PreparedStatement ps = conn.prepareStatement("Insert into cost(description,cost,date) values('" + cst.getDescription()+ "','" + cst.getCost() + "','"+cst.getDate()+"')");
-				
-
+		
 		int res = ps.executeUpdate();
 		if (res > 0)
 		{
-		status=true;	
+			PreparedStatement ps1=conn.prepareStatement("Insert into report(cost) values('"+cst.getCost()+"')");
+			int res1=ps1.executeUpdate();
+				if(res1>0) {
+					status=true;
+				}else {
+					status=false;
+				}
 		}
 		else {
 			status=false;
@@ -46,7 +51,7 @@ public class costserviceImpl implements costservice {
 		while(result.next()) {
 			costId=result.getInt(1);
 			description=result.getString(2);
-			cost=result.getString(3);
+			cost=result.getDouble(3);
 			date=result.getString(4);
 			cst1.add(new cost(costId,description,cost,date));
 			++size;
@@ -61,6 +66,44 @@ public class costserviceImpl implements costservice {
 		
 		
 			
+	}
+
+	@Override
+	public boolean updatecost(cost cst) throws ClassNotFoundException, SQLException {
+		
+		boolean status = true;
+		PreparedStatement ps= DBconnect.getCon().prepareStatement("update cost set description=' " + cst.getDescription() + "' ,"
+																	+ "  cost= '"+cst.getCost()+"' ,"
+																			+ " date= '"+cst.getDate()+ "'"
+																					+ " where costid= "+cst.getCostid());
+		
+		int res=ps.executeUpdate();
+		if(res>0) {
+			status=true;
+		}
+		else {
+			status=false;
+		}
+		return status;
+	}
+
+	@Override
+	public boolean deletecost(int costid) throws ClassNotFoundException, SQLException {
+		
+		boolean status =true;
+		
+		PreparedStatement ps=DBconnect.getCon().prepareStatement("Delete from cost where costid = "+costid);
+		
+		int result=ps.executeUpdate();
+		if(result>0) {
+			status=true;
+		}
+		else {
+			status=false;
+		}
+			
+		
+		return status;
 	}
 
 	

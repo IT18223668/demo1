@@ -33,11 +33,19 @@
 
 .appointment {
 	position:relative;
-	left:550px;
-	bottom:110px;
+	left:430px;
+	bottom:250px;
 	
 	
 }
+.opd {
+	position:relative;
+	left:430px;
+	bottom:250px;
+	
+	
+}
+
 
 
 .tabcontent {

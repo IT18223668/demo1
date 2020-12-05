@@ -7,20 +7,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>About us</title>
+<title>Finance</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Health medical template project">
+<meta name="description" content="Health medical  project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
 <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
-<link rel="stylesheet" type="text/css" href="styles/about.css">
+<link rel="stylesheet" type="text/css" href="styles/cost.css">
 <link rel="stylesheet" type="text/css" href="styles/about_responsive.css">
 <link rel="stylesheet" type="text/css" href="cssFiles/costs.css" >
+<style>
 
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  bottom: 23px;
+  right: 28px;
+  width: 40px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 285px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: black;
+  padding: 6px 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: #d0d6d6 ;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+</style>
 </head>
 <body>
 
@@ -133,34 +200,41 @@
 		HttpSession hs2=request.getSession();
 		hs2.setAttribute("allApPys", pys.getAppPym());
 		
-		EmpService emp=new EmpServiceImp();
+
+		patient_service pat=new  patient_service_implement();
 		HttpSession hs3=request.getSession();
-		hs3.setAttribute("AllEmpSal", emp.getEmpSal());
+		hs3.setAttribute("allpatients", pat.getAllPatients());
+		
+		
 	%>
 
-<div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'Add')">Add Costs</button>
-  <button class="tablinks" onclick="openCity(event, 'Trans')">View Transactions</button>
-  <button class="tablinks" onclick="openCity(event, 'Reports')">Financial Reports</button>
-</div>
 
-<div id="Add" class="tabcontent">
- <form method="post" action=Addcost >
-	<table>
-		<tr><td>Description</td><td><input type="text" name="description" required></td></tr>
-		<tr><td>Paid</td><td><input type="text" name="cost"required></td></tr>
-		<tr><td>Date</td><td><input type="date" name="date"required></td></tr>
-		<tr><td><input type="submit" value="ADD"></td></tr>
-	</table>
-	</form>
-</div>
 
-<div id="Trans" class="tabcontent">
+
+
 <h2>Costs</h2>
+	<button class="open-button" onclick="openForm()">Open Form</button>
+
+			<div class="form-popup" id="myForm">
+			  <form action="Add" class="form-container" method="post">
+			    <h1>Cost Add</h1>
+			
+			    <label for="email"><b>Description</b></label>
+			    <input type="text"  name="description" required>
+			
+			    <label for="psw"><b>Cost</b></label>
+			    <input type="text"  name="cost" required>
+				
+				 <label for="psw"><b>Date</b></label>
+			    <input type="date"  name="date" required>
+			    				
+				<input type="submit"  value="Insert">
+			    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+			  </form>
+			</div>
 <table>
 	<tr>
-		<td width=100px>CostID</td>
-		<td width=100px>Cost Name</td>	
+		<td width=100px>Description</td>	
 		<td width=100px>cost</td>
 		<td width=100px>Date</td>
 	</tr>
@@ -170,12 +244,6 @@
 	%>
 	
 	<tr>
-		<td
-			 onclick="location.href='costs.jsp?id=<%=c.getCostid()%>'">
-		<%
-			out.print(c.getCostid());
-		%>
-		</td>
 		<td
 			onclick="location.href='costs.jsp?id=<%=c.getCostid()%>'">
 			<%
@@ -194,13 +262,23 @@
 				out.print(c.getDate());
 			%>	
 		</td>
-			
+		<td>
+				<form action=delete method="post">
+					<input type="hidden" value=<%=c.getCostid() %> >
+					<input type="submit" value="Delete">
+				</form>
+		</td>
+		<td>
+			<a href="CostEdit.jsp?u=<%=c.getCostid()%>">Edit</a>
+		</td>	
+	
 	</tr>
 	
 	
 	<%
 		}
 	%>
+	
 </table>
 <div class="appointment">
 <h2>Appointment Payment</h2>
@@ -209,7 +287,6 @@
 		<td width=100px>AppointmentPayId</td>
 		<td width=100px>Payment</td>	
 		<td width=100px>Doctor Charge</td>
-		<td width=100px>Institute Charge</td>
 	</tr>
 		<%
 		ArrayList<appointment_payment> apt=(ArrayList<appointment_payment>) session.getAttribute("allApPys");
@@ -238,13 +315,7 @@
 			 %>
 			 
 		</td>
-		<td
-			 onclick="location.href='costs.jsp?id=<%=a.getPayId()%>'">
-			 <%
-			 out.print(a.getInstitutePy());
-			 %>
-			 
-		</td> 
+	
 		
 	</tr>
 	<%
@@ -252,86 +323,55 @@
 	%>
 </table>
 </div>
-<div class="appointment">
-<h2>Employee Salaries</h2>
+<div class="opd">
+<h2>OPD Payment</h2>
 <table>
 	<tr>
-		<td width=100px>EmployeeId</td>
-		<td width=100px>Basic Salaries</td>	
-		<td width=100px>Bonus</td>
-		<td width=100px>Total</td>
+		<td width=100px>Patient ID</td>	
+		<td width=100px>Doctor Charge</td>
 	</tr>
 		<%
-		ArrayList<employee> es=(ArrayList<employee>) session.getAttribute("AllEmpSal");
-		for(employee e:es){
+		ArrayList<patients> apt1=(ArrayList<patients>) session.getAttribute("allpatients");
+		for(patients a:apt1){
 		%>
 	<tr>
 	
+	
 		<td
-			 onclick="location.href='costs.jsp?id=<%=e.getEid()%>'">
-			 <%
-			 out.print(e.getEid());
-			 %>
-			 
-		</td>	
-		<td
-			 onclick="location.href='costs.jsp?id=<%=e.getEid() %>'">
+			 onclick="location.href='costs.jsp?id=<%=a.getPid()%>'">
 			<%
-			out.print(e.getBasicS());
+			out.print(a.getPid());
 			%>
 			 
 		</td>
 		<td
-			 onclick="location.href='costs.jsp?id=<%=e.getEid()%>'">
+			 onclick="location.href='costs.jsp?id=<%=a.getPid()%>'">
 			 <%
-			 out.print(e.getBonus());
+			 out.print(a.getFee());
 			 %>
 			 
 		</td>
-		<td
-			 onclick="location.href='costs.jsp?id=<%=e.getEid()%>'">
-			 <%
-			 out.print(e.getBonus()+e.getBasicS());
-			 %>
-			 
-		</td>
+	
 		
 	</tr>
 	<%
 		}
 	%>
 </table>
-</div>
+<a href="Report.jsp">Get Report</a>
 </div>
 
-<div id="Reports" class="tabcontent">
- <div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'DailyR')">Daily Report</button>
-  <button class="tablinks" onclick="openCity(event, 'MonthlyR')">Monthly Report</button>
-  </div>
-  <div id="DailyR" class="tabcontent">
-	<h1>This is Daily Report</h1>
-	
-</div>
-<div id="MonthlyR" class="tabcontent">
-	<h1>This is Monthly Report</h1>
-</div>
-</div>
+
+
 
 <script>
-function openCity(evt, cityName) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " active";
-}
+	function openForm() {
+	  document.getElementById("myForm").style.display = "block";
+	}
+
+	function closeForm() {
+	  document.getElementById("myForm").style.display = "none";
+	}
 </script>
 
 	
@@ -351,16 +391,7 @@ function openCity(evt, cityName) {
 				<div class="row">
 
 					<!-- Footer About -->
-					<div class="col-lg-3 footer_col">
-						<div class="footer_about">
-							<div class="logo">
-								<a href="#">suwapiyasa<span>+</span></a>	
-							</div>
-							<div class="footer_about_text">Lorem ipsum dolor sit amet, lorem maximus consectetur adipiscing elit. Donec malesuada lorem maximus mauris.</div>
-							
-							
-						</div>
-					</div>
+					
 					
 					<!-- Footer Contact -->
 					<div class="col-lg-5 footer_col">

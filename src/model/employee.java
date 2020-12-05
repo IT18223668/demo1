@@ -1,62 +1,109 @@
 package model;
 
-public class employee {
+public class Employee {
 
-	private int Eid;
-	private String Ename;
-	private String basicS;
-	private String bonus;
+	
+	private int EmployeeID;
+	
+	private String Name;
+
+	private String Designation;
+
+	private String MobileNo;
+
+	private String Nic;
+
+	private String Address;
 	
 	
-	public employee(int eid, String ename, String basicS, String bonus) {
+	
+	
+	
+	
+	public Employee() {
 		super();
-		Eid = eid;
-		Ename = ename;
-		this.basicS = basicS;
-		this.bonus = bonus;
 	}
+
 	
 	
-	
-	public employee(int eid, String basicS, String bonus) {
+	public Employee(String name, String designation, String mobileNo, String nic, String address) {
 		super();
-		Eid = eid;
-		this.basicS = basicS;
-		this.bonus = bonus;
+		Name = name;
+		Designation = designation;
+		MobileNo = mobileNo;
+		Nic = nic;
+		Address = address;
 	}
 
 
 
-	public int getEid() {
-		return Eid;
+	public Employee(int employeeID, String name, String designation, String mobileNo, String nic, String address
+			) {
+		super();
+		EmployeeID = employeeID;
+		Name = name;
+		Designation = designation;
+		MobileNo = mobileNo;
+		Nic = nic;
+		Address = address;
+		
+	}
+
+	public int getEmployeeID() {
+		return EmployeeID;
+	}
+
+	public void setEmployeeID(int employeeID) {
+		EmployeeID = employeeID;
+	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
+
+	public String getDesignation() {
+		return Designation;
+	}
+
+	public void setDesignation(String designation) {
+		Designation = designation;
+	}
+
+	public String getMobileNo() {
+		return MobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		MobileNo = mobileNo;
+	}
+
+	public String getNic() {
+		return Nic;
+	}
+
+	public void setNic(String nic) {
+		Nic = nic;
+	}
+
+	public String getAddress() {
+		return Address;
+	}
+
+	public void setAddress(String address) {
+		Address = address;
 	}
 
 
-
-	public void setEid(int eid) {
-		Eid = eid;
-	}
-
-
-
-	public String getEname() {
-		return Ename;
-	}
-	public void setEname(String ename) {
-		Ename = ename;
-	}
-	public String getBasicS() {
-		return basicS;
-	}
-	public void setBasicS(String basicS) {
-		this.basicS = basicS;
-	}
-	public String getBonus() {
-		return bonus;
-	}
-	public void setBonus(String bonus) {
-		this.bonus = bonus;
-	}
+	
+	
+	
+	
+	
+	
 	
 	
 }

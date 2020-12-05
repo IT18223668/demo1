@@ -1,11 +1,17 @@
 package service;
 
-import model.*;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface EmpService {
+import model.Employee;
 
-	public ArrayList<employee> getEmpSal() throws ClassNotFoundException ,SQLException;
+
+public interface EmpService {
+	
+	public boolean addEmployee(Employee emp) throws ClassNotFoundException,SQLException;
+	public ArrayList<Employee> getAllEmployee() throws ClassNotFoundException,SQLException;
+	public boolean updateEmployee(Employee emp) throws ClassNotFoundException,SQLException;
+	public boolean deleteEmployee(int EmployeeID) throws ClassNotFoundException,SQLException;
+
+
 }

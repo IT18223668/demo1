@@ -3,11 +3,17 @@ package model;
 public class cost {
 	private int costid;
 	private String Description;
-	private String cost;
+	private double cost;
 	private String date;
 	
 	
-	public cost(int costid, String description, String cost, String date) {
+	
+	
+	public cost() {
+		super();
+	}
+
+	public cost(int costid, String description, double cost, String date) {
 		super();
 		this.costid = costid;
 		Description = description;
@@ -15,9 +21,13 @@ public class cost {
 		this.date = date;
 	}
 	
+	public cost(int costid) {
+		super();
+		this.costid=costid;
+	}
 	
 	
-	public cost(String description, String cost, String date) {
+	public cost(String description, double cost, String date) {
 		super();
 		Description = description;
 		this.cost = cost;
@@ -26,7 +36,7 @@ public class cost {
 
 
 
-	public cost(String description, String cost) {
+	public cost(String description, double cost) {
 		super();
 		Description = description;
 		this.cost = cost;
@@ -58,10 +68,10 @@ public class cost {
 	public void setDescription(String description) {
 		Description = description;
 	}
-	public String getCost() {
+	public double getCost() {
 		return cost;
 	}
-	public void setCost(String cost) {
+	public void setCost(double cost) {
 		this.cost = cost;
 	}
 	

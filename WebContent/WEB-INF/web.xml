@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <element>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>demo1</display-name>
+  <display-name>ITP</display-name>
   
   <servlet>
-  	<servlet-name>abs</servlet-name>
-  	<servlet-class>servlet.Addcost</servlet-class>
+  	<servlet-name>Add</servlet-name>
+  	<servlet-class>servlet.Add</servlet-class>
   	
   </servlet>
   <servlet-mapping>
-  	<servlet-name>abs</servlet-name>
-  	<url-pattern>/Addcost</url-pattern>
+  	<servlet-name>Add</servlet-name>
+  	<url-pattern>/Add</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>update</servlet-name>
+  	<servlet-class>servlet.update</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>update</servlet-name>
+  	<url-pattern>/update</url-pattern>
   </servlet-mapping>
 </web-app>
 </element>

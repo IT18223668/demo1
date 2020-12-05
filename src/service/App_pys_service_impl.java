@@ -13,9 +13,8 @@ public class App_pys_service_impl implements App_pys_service {
 
 	private int size;
 	private int  payID;
-	private String payments;
-	private String PyDoc;
-	private String PyInst;
+	private double payments;
+	private double PyDoc;
 	private ArrayList<appointment_payment> apPys=null;
 	
 	@Override
@@ -27,10 +26,9 @@ public class App_pys_service_impl implements App_pys_service {
 		ArrayList<appointment_payment> apPys=new ArrayList<appointment_payment>();
 		while(result.next()) {
 			payID=result.getInt(1);
-			payments=result.getString(2);
-			PyDoc=result.getString(3);
-			PyInst=result.getString(4);
-			apPys.add(new appointment_payment(payID, payments, PyDoc, PyInst));
+			payments=result.getDouble(2);
+			PyDoc=result.getDouble(3);
+			apPys.add(new appointment_payment(payID, payments, PyDoc));
 			++size;
 			}
 		if(size>0) {
